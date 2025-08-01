@@ -8,9 +8,12 @@
     "dev:clean": "sudo rm -rf .nuxt && node_modules/.cache && npm run dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
+    "@nuxt/eslint": "1.7.1",
     "@nuxt/ui": "^3.3.0",
     "eslint": "^9.32.0",
     "nuxt": "^4.0.1",
