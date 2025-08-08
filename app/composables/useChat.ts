@@ -5,8 +5,6 @@ export default function useChat() {
 	const chat = ref<Chat>(MOCK_CHAT);
 	const messages = computed<ChatMessage[]>(() => chat.value.messages);
 
-	chat.value.messages = [];
-
 	function createMessage(message: string, role: ChatMessage['role']) {
 		const id = messages.value.length.toString();
 
