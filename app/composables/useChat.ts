@@ -17,12 +17,14 @@ export default function useChat() {
 	async function sendMessage(message: string) {
 		messages.value.push(createMessage(message, 'user'));
 
-		// Simulate an API call to send the message
-		setTimeout(() => {
-			const response = `Response to: ${message}`;
+		const response = await $fetch<ChatMessage>('/api/ai', {
+			method: 'POST',
+			body: {
+				messages: messages.value,
+			},
+		});
 
-			messages.value.push(createMessage(response, 'assistant'));
-		}, 1000);
+		messages.value.push(response);
 	}
 
 	return {
