@@ -10,9 +10,7 @@ export default defineNuxtConfig({
 	modules: ['@nuxt/ui', '@nuxt/eslint'],
 
 	runtimeConfig: {
-		public: {
-			someValue: process.env.PUBLIC_SOME_VALUE,
-		},
 		openaiApiKey: process.env.OPENAI_API_KEY,
+		environment: process.env.NODE_ENV,
 	},
 });
