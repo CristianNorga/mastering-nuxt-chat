@@ -8,9 +8,14 @@ export default defineNuxtConfig({
 	devtools: { enabled: true },
 	css: ['~/assets/css/main.css'],
 	modules: ['@nuxt/ui', '@nuxt/eslint', '@nuxtjs/mdc'],
-
 	runtimeConfig: {
 		openaiApiKey: process.env.OPENAI_API_KEY,
 		environment: process.env.NODE_ENV,
+	},
+	mdc: {
+		highlight: {
+			theme: 'material-theme-palenight',
+			langs: ['html', 'markdown', 'vue', 'typescript', 'javascript'],
+		},
 	},
 });
