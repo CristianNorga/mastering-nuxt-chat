@@ -31,6 +31,14 @@ const MOCK_CHAT: Chat = {
 	id: '1',
 	title: 'Nuxt.js project help',
 	messages: [...MOCK_MESSAGES],
+	projectId: '1',
+	createdAt: new Date(),
+	updatedAt: new Date(),
 };
 
-export { MOCK_CHAT, MOCK_MESSAGES };
+const MOCK_PROJECT: Project = {
+	id: '1',
+	name: 'Nuxt Project',
+};
+
+export { MOCK_CHAT, MOCK_MESSAGES, MOCK_PROJECT };
