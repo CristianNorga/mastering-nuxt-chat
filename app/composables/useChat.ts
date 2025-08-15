@@ -1,8 +1,8 @@
-import { MOCK_CHAT } from './mockData';
+export default function useChat(chatId: string) {
+	const { chats } = useChats();
+	const chat = computed(() => chats.value.find((c: Chat) => c.id === chatId));
 
-export default function useChat() {
-	const chat = ref<Chat>(MOCK_CHAT);
-	const messages = computed<ChatMessage[]>(() => chat.value.messages);
+	const messages = computed<ChatMessage[]>(() => chat.value?.messages || []);
 
 	function createMessage(message: string, role: ChatMessage['role']) {
 		const id = messages.value.length.toString();

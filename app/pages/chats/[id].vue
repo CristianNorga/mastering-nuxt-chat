@@ -1,5 +1,6 @@
 <script setup lang="ts">
-const { chat, messages, sendMessage } = useChat();
+const { params } = useRoute();
+const { chat, messages, sendMessage } = useChat(params.id as string);
 
 const typing = ref(false);
 
@@ -12,7 +13,9 @@ const handleSendMessage = async (message: string) => {
 const appConfig = useAppConfig();
 
 const title = computed(() =>
-	chat.value.title ? `${chat.value.title} - ${appConfig.title}` : appConfig.title
+	chat.value?.title
+		? `${chat.value.title} - ${appConfig.title}`
+		: appConfig.title
 );
 
 useHead({
