@@ -1,6 +1,16 @@
 <script setup lang="ts">
 const { params } = useRoute();
-const { chat, messages, sendMessage } = useChat(params.id as string);
+
+const {
+	chat: chatFromChats,
+	messages,
+	sendMessage,
+} = useChat(params.id as string);
+
+if (!chatFromChats.value) {
+	await navigateTo('/', { replace: true });
+}
+const chat = computed(() => chatFromChats.value as Chat);
 
 const typing = ref(false);
 
