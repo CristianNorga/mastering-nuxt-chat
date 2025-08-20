@@ -2,7 +2,7 @@ import {
 	createOllamaModel,
 	createOpenAIModel,
 	generateChatResponse,
-} from '../service/ai-service';
+} from '../services/ai-service';
 
 export default defineEventHandler(async (event) => {
 	const body = await readBody(event);
