@@ -1,0 +1,20 @@
+// https://nuxt.com/docs/api/configuration/nuxt-config
+export default defineNuxtConfig({
+	compatibilityDate: '2025-07-15',
+	future: {
+		compatibilityVersion: 4,
+	},
+	pages: true,
+	devtools: { enabled: true },
+
+	css: ['./layers/base/app/assets/css/main.css'],
+
+	modules: ['@nuxt/ui', '@nuxtjs/mdc'],
+
+	mdc: {
+		highlight: {
+			theme: 'material-theme-palenight',
+			langs: ['html', 'markdown', 'vue', 'typescript', 'javascript'],
+		},
+	},
+});
