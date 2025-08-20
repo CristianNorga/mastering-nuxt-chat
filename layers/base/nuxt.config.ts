@@ -5,6 +5,7 @@ export default defineNuxtConfig({
 		compatibilityVersion: 4,
 	},
 	pages: true,
+
 	devtools: { enabled: true },
 
 	css: ['./layers/base/app/assets/css/main.css'],
