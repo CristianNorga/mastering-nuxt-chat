@@ -28,3 +28,16 @@ export async function generateChatResponse(
 
 	return response.text.trim();
 }
+
+export async function generateChatTitle(
+	model: LanguageModelV1,
+	firstMessage: string
+): Promise<string> {
+	const response = await generateText({
+		model,
+		system:
+			'Eres un experto en generar títulos atractivos y descriptivos para conversaciones de chat.',
+		prompt: `Genera un título para la conversación de 3 palabras o menos (solo retorna el titulo): ${firstMessage}`,
+	});
+	return response.text.trim();
+}
