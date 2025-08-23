@@ -1,16 +1,14 @@
 export default function useChats() {
-	const {
-		data: chats,
-		execute,
-		status,
-	} = useAsyncData<Chat[]>('chats', () => $fetch<Chat[]>('/api/chats'), {
-		immediate: false,
+	const chats = useState<Chat[]>('chats', () => []);
+	const { data, execute, status } = useFetch<Chat[]>('/api/chats', {
 		default: () => [],
+		immediate: false,
 	});
 
 	async function fetchChats() {
 		if (status.value !== 'idle') return;
 		await execute();
+		chats.value = data.value;
 	}
 
 	function createChat(options: { projectId?: string } = {}) {
