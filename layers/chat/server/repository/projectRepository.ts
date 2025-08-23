@@ -1,11 +1,11 @@
 import { v4 as uuidv4 } from 'uuid';
-import type { Project } from '../../shared/types/types';
-import { MOCK_PROJECT } from '../../shared/utils/mockData';
 
 const projects: Project[] = [MOCK_PROJECT];
 
 export function getAllProjects(): Project[] {
-	return [...projects].sort((a, b) => a.name.localeCompare(b.name));
+	return [...projects].sort(
+		(a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+	);
 }
 
 export function getProjectById(id: string): Project | null {
@@ -16,7 +16,7 @@ export async function createProject(data: { name: string }): Promise<Project> {
 	const now = new Date();
 	const newProject: Project = {
 		id: uuidv4(),
-		name: data.name,
+		name: data.name || 'Nuevo Proyecto',
 		createdAt: now,
 		updatedAt: now,
 	};
