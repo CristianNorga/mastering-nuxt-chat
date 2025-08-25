@@ -8,10 +8,10 @@ import {
 	createOllamaModel,
 } from '../../../../services/ai-service';
 
-export default defineEventHandler(async (event) => {
-	const { id } = getRouterParams(event);
+export default defineEventHandler(async (_event) => {
+	const { id } = getRouterParams(_event);
 
-	const history = getMessagesByChatId(id);
+	const history = await getMessagesByChatId(id);
 
 	const { openaiApiKey, environment } = useRuntimeConfig();
 

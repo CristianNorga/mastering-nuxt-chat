@@ -16,7 +16,7 @@ export default function useProjects() {
 		const project = await $fetch<Project>('/api/projects', {
 			method: 'POST',
 			body: {
-				name: 'New Project',
+				name: 'Nuevo Proyecto',
 			},
 		});
 

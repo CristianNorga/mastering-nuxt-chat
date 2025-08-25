@@ -8,4 +8,13 @@ export default defineNuxtConfig({
 	devtools: { enabled: true },
 
 	modules: ['@nuxt/eslint'],
+
+	nitro: {
+		storage: {
+			db: {
+				driver: 'fs',
+				base: './.data',
+			},
+		},
+	},
 });

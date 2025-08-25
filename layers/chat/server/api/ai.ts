@@ -3,12 +3,22 @@ import {
 	createOpenAIModel,
 	generateChatResponse,
 } from '../services/ai-service';
+import { ChatMessageSchema } from '../schemas';
 
 export default defineEventHandler(async (event) => {
-	const body = await readBody(event);
-	const { messages } = body;
+	const { success, data } = await readValidatedBody(
+		event,
+		ChatMessageSchema.safeParse
+	);
 
-	const id = messages[messages.length - 1];
+	if (!success) {
+		return 400;
+	}
+
+	const { messages } = data as {
+		messages: ChatMessage[];
+		chatId: string;
+	};
 
 	const { openaiApiKey, environment } = useRuntimeConfig();
 
@@ -20,7 +30,7 @@ export default defineEventHandler(async (event) => {
 	const response = await generateChatResponse(model, messages);
 
 	return {
-		id,
+		id: messages.length.toString(),
 		role: 'assistant',
 		content: response,
 	};

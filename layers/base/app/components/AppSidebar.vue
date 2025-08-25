@@ -99,7 +99,7 @@ async function handleCreateChat() {
 			class="mb-4 overflow-auto p-4 border-b border-(--ui-border)"
 		>
 			<div class="flex justify-between items-center mb-2">
-				<h2 class="text-sm font-semibold text-(--ui-text-muted)">Projects</h2>
+				<h2 class="text-sm font-semibold text-(--ui-text-muted)">Proyectos</h2>
 			</div>
 			<UNavigationMenu
 				orientation="vertical"
@@ -115,7 +115,7 @@ async function handleCreateChat() {
 				class="mt-2 w-full"
 				@click="handleCreateProject"
 			>
-				New Project
+				Nuevo Proyecto
 			</UButton>
 		</div>
 		<div v-if="chatsWithoutProject.length > 0" class="overflow-y-auto p-4">
