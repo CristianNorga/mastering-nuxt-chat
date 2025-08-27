@@ -16,6 +16,7 @@
   "dependencies": {
     "@ai-sdk/openai": "1.2.0",
     "@nuxt/eslint": "1.7.1",
+    "@nuxt/image": "1.11.0",
     "@nuxt/ui": "^3.3.0",
     "ai": "4.1.51",
     "eslint": "^9.32.0",

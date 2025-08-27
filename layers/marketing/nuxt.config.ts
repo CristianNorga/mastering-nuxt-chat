@@ -6,21 +6,4 @@ export default defineNuxtConfig({
 	},
 
 	devtools: { enabled: true },
-
-	modules: ['@nuxt/eslint', '@nuxt/image'],
-
-	nitro: {
-		storage: {
-			db: {
-				driver: 'fs',
-				base: './.data',
-			},
-		},
-	},
-
-	routeRules: {
-		'/': {
-			prerender: true,
-		},
-	},
 });
