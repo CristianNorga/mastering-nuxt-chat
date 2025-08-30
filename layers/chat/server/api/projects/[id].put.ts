@@ -16,7 +16,10 @@ export default defineEventHandler(async (event) => {
 	if (!project) return 404;
 
 	if (!success) {
-		return 400;
+		throw createError({
+			statusCode: 400,
+			statusMessage: 'Bad Request',
+		});
 	}
 
 	return updateProject(id, data);

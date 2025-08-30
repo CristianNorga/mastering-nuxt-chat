@@ -15,7 +15,10 @@ export default defineEventHandler(async (event) => {
 	);
 
 	if (!success) {
-		return 400;
+		throw createError({
+			statusCode: 400,
+			statusMessage: 'Bad Request',
+		});
 	}
 
 	const { openaiApiKey, environment } = useRuntimeConfig();
