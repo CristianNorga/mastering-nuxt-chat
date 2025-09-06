@@ -23,4 +23,15 @@ export default defineNuxtConfig({
 			prerender: true,
 		},
 	},
+
+	$production: {
+		nitro: {
+			storage: {
+				db: {
+					driver: 'netlify-blobs',
+					name: 'db',
+				},
+			},
+		},
+	},
 });

@@ -9,3 +9,7 @@
 
 1. Se desinstaló y volvió a instalar el módulo con el comando `pnpm dlx nuxi module add image`
 2. Se ejecuto el comando `npm rebuild sharp`
+
+pnpm add @prisma/nuxt@latest -D --ignore-scripts
+
+pnpm dlx nuxi module add prisma

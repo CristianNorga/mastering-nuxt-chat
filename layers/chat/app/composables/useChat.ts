@@ -2,9 +2,9 @@ export default function useChat(chatId: string) {
 	const { chats } = useChats();
 	const chat = computed(() => chats.value.find((c) => c.id === chatId));
 
-	const messages = computed<ChatMessage[]>(() => chat.value?.messages || []);
+	const messages = computed<Message[]>(() => chat.value?.messages || []);
 
-	const { data, execute, status } = useFetch<ChatMessage[]>(
+	const { data, execute, status } = useFetch<Message[]>(
 		`/api/chats/${chatId}/messages`,
 		{
 			default: () => [],
@@ -49,7 +49,7 @@ export default function useChat(chatId: string) {
 			generateChatTitle(message);
 		}
 
-		const optimisticUserMessage: ChatMessage = {
+		const optimisticUserMessage: Message = {
 			id: `optimistic-user-message-${Date.now()}`,
 			role: 'user',
 			content: message,
@@ -61,16 +61,13 @@ export default function useChat(chatId: string) {
 		const userMessageIndex = messages.value.length - 1;
 
 		try {
-			const newMessage = await $fetch<ChatMessage>(
-				`/api/chats/${chatId}/messages`,
-				{
-					method: 'POST',
-					body: {
-						content: message,
-						role: 'user',
-					},
-				}
-			);
+			const newMessage = await $fetch<Message>(`/api/chats/${chatId}/messages`, {
+				method: 'POST',
+				body: {
+					content: message,
+					role: 'user',
+				},
+			});
 			messages.value[userMessageIndex] = newMessage;
 		} catch (error) {
 			console.error('Error sending user message', error);
@@ -85,7 +82,7 @@ export default function useChat(chatId: string) {
 			createdAt: new Date(),
 			updatedAt: new Date(),
 		});
-		const lastMessage = messages.value[messages.value.length - 1] as ChatMessage;
+		const lastMessage = messages.value[messages.value.length - 1] as Message;
 
 		try {
 			const response = await $fetch<ReadableStream>(
@@ -127,7 +124,7 @@ export default function useChat(chatId: string) {
 		const originalProjectId = chat.value.projectId;
 
 		// Optimistically update the chat
-		chat.value.projectId = projectId || undefined;
+		chat.value.projectId = projectId || null;
 
 		try {
 			const updatedChat = await $fetch<Chat>(`/api/chats/${chatId}`, {
@@ -155,7 +152,7 @@ export default function useChat(chatId: string) {
 		chat,
 		messages,
 		sendMessage,
-		assignToProject,
 		fetchMessages,
+		assignToProject,
 	};
 }

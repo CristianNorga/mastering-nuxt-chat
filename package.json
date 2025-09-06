@@ -18,10 +18,13 @@
     "@nuxt/eslint": "1.7.1",
     "@nuxt/image": "1.11.0",
     "@nuxt/ui": "^3.3.0",
+    "@prisma/client": "^6.15.0",
     "ai": "4.1.51",
     "eslint": "^9.32.0",
     "nuxt": "^4.0.3",
     "ollama-ai-provider": "1.2.0",
+    "prisma": "^6.15.0",
+    "tsx": "^4.20.5",
     "uuid": "^11.1.0",
     "vue": "^3.5.18",
     "vue-router": "^4.5.1",
@@ -30,6 +33,9 @@
   "devDependencies": {
     "@nuxtjs/mdc": "^0.17.2",
     "husky": "^9.1.7"
+  },
+  "prisma": {
+    "seed": "pnpm dlx tsx prisma/seed.ts"
   },
   "packageManager": "pnpm@10.14.0+sha512.ad27a79641b49c3e481a16a805baa71817a04bbe06a38d17e60e2eaee83f6a146c6a688125f5792e48dd5ba30e7da52a5cda4c3992b9ccf333f9ce223af84748"
 }
