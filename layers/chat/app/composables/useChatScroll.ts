@@ -61,7 +61,7 @@ export default function useChatScroll() {
 		}
 	}
 
-	// Add scroll event listener
+	// Add scroll _event listener
 	onMounted(() => {
 		if (scrollContainer.value) {
 			scrollContainer.value.addEventListener('scroll', checkScrollPosition);
@@ -72,7 +72,7 @@ export default function useChatScroll() {
 		}
 	});
 
-	// Remove scroll event listener on unmount
+	// Remove scroll _event listener on unmount
 	onUnmounted(() => {
 		if (scrollContainer.value) {
 			scrollContainer.value.removeEventListener('scroll', checkScrollPosition);

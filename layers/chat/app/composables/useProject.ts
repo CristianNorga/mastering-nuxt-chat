@@ -23,6 +23,7 @@ export default function useProject(projectId: string) {
 				body: {
 					...updatedProject,
 				},
+				headers: useRequestHeaders(['cookie']),
 			});
 			updateProjectInList(response);
 			return response;

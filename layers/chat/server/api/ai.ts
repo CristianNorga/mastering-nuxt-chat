@@ -5,9 +5,9 @@ import {
 } from '../services/ai-service';
 import { ChatMessageSchema } from '../schemas';
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async (_event) => {
 	const { success, data } = await readValidatedBody(
-		event,
+		_event,
 		ChatMessageSchema.safeParse
 	);
 

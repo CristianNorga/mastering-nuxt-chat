@@ -7,8 +7,13 @@ export default defineNuxtConfig({
 
 	devtools: { enabled: true },
 
-	modules: ['@nuxt/eslint', '@nuxt/image'],
+	modules: ['@nuxt/eslint', '@nuxt/image', '@prisma/nuxt'],
 
+	vite: {
+		optimizeDeps: {
+			include: ['debug'],
+		},
+	},
 	nitro: {
 		storage: {
 			db: {
@@ -17,7 +22,6 @@ export default defineNuxtConfig({
 			},
 		},
 	},
-
 	routeRules: {
 		'/': {
 			prerender: true,

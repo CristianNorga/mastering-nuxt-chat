@@ -1,16 +1,29 @@
-import { updateChat } from '../../../repository/chatRepository';
+import {
+	updateChat,
+	getChatByIdForUser,
+} from '../../../repository/chatRepository';
 import {
 	createOpenAIModel,
 	generateChatTitle,
-	createOllamaModel,
 } from '../../../services/ai-service';
 import { UpdateChatTitleSchema } from '../../../schemas';
+import { getAuthenticatedUserId } from '#layers/auth/server/utils/auth';
 
-export default defineEventHandler(async (event) => {
-	const { id } = getRouterParams(event);
+export default defineEventHandler(async (_event) => {
+	const { id } = getRouterParams(_event);
+	const userId = await getAuthenticatedUserId(_event);
+
+	// Verify user owns the chat
+	const chat = await getChatByIdForUser(id, userId);
+	if (!chat) {
+		throw createError({
+			statusCode: 404,
+			statusMessage: 'Chat not found',
+		});
+	}
 
 	const { success, data } = await readValidatedBody(
-		event,
+		_event,
 		UpdateChatTitleSchema.safeParse
 	);
 
@@ -21,13 +34,7 @@ export default defineEventHandler(async (event) => {
 		});
 	}
 
-	const { openaiApiKey, environment } = useRuntimeConfig();
-
-	const model =
-		environment === 'development'
-			? createOllamaModel()
-			: createOpenAIModel(openaiApiKey);
-
+	const model = createOpenAIModel(useRuntimeConfig().openaiApiKey);
 	const title = await generateChatTitle(model, data.message);
 
 	return updateChat(id, { title });

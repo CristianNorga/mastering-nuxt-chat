@@ -9,6 +9,7 @@ export default function useChat(chatId: string) {
 		{
 			default: () => [],
 			immediate: false,
+			headers: useRequestHeaders(['cookie']),
 		}
 	);
 
@@ -38,6 +39,7 @@ export default function useChat(chatId: string) {
 			body: {
 				message,
 			},
+			headers: useRequestHeaders(['cookie']),
 		});
 		chat.value.title = updatedChat.title;
 	}
@@ -67,6 +69,7 @@ export default function useChat(chatId: string) {
 					content: message,
 					role: 'user',
 				},
+				headers: useRequestHeaders(['cookie']),
 			});
 			messages.value[userMessageIndex] = newMessage;
 		} catch (error) {
@@ -93,6 +96,7 @@ export default function useChat(chatId: string) {
 					body: {
 						messages: messages.value,
 					},
+					headers: useRequestHeaders(['cookie']),
 				}
 			);
 
@@ -132,6 +136,7 @@ export default function useChat(chatId: string) {
 				body: {
 					projectId,
 				},
+				headers: useRequestHeaders(['cookie']),
 			});
 
 			// Update the chat in the chats list

@@ -3,12 +3,13 @@ export default function useChats() {
 	const { data, execute, status } = useFetch<Chat[]>('/api/chats', {
 		default: () => [],
 		immediate: false,
+		headers: useRequestHeaders(['cookie']),
 	});
 
-	async function fetchChats() {
-		if (status.value !== 'idle') return;
+	async function fetchChats(refresh = false) {
+		if (status.value !== 'idle' && !refresh) return;
 		await execute();
-		chats.value = data.value;
+		chats.value = data.value || [];
 	}
 
 	async function prefetchChatMessages() {
@@ -21,9 +22,16 @@ export default function useChats() {
 		await Promise.all(
 			recentChats.map(async (chat) => {
 				try {
-					const messages = await $fetch<Message[]>(`/api/chats/${chat.id}/messages`);
+					const messages = await $fetch<Message[]>(
+						`/api/chats/${chat.id}/messages`,
+						{
+							headers: useRequestHeaders(['cookie']),
+						}
+					);
 
-					const targetChat = chats.value.find((c) => c.id === chat.id);
+					const targetChat = chats.value.find((c) => c.id === chat.id) as
+						| ChatWithMessages
+						| undefined;
 					if (targetChat) {
 						targetChat.messages = messages;
 					}
@@ -39,6 +47,7 @@ export default function useChats() {
 	) {
 		const newChat = await $fetch<Chat>('/api/chats', {
 			method: 'POST',
+			headers: useRequestHeaders(['cookie']),
 			body: {
 				title: options.title,
 				projectId: options.projectId,
@@ -52,6 +61,10 @@ export default function useChats() {
 
 	async function createChatAndNavigate(options: { projectId?: string } = {}) {
 		const chat = await createChat(options);
+
+		if (!chat || !chat.id) {
+			throw new Error('Failed to create chat');
+		}
 
 		if (chat.projectId) {
 			await navigateTo(`/projects/${chat.projectId}/chats/${chat.id}`);
